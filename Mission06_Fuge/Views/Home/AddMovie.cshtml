@@ -15,9 +15,11 @@
     <form method="post">
         <label asp-for="Title">Title:</label>
         <input asp-for="Title" />
+        @Html.ValidationMessageFor(model => model.Title)
         <br />
         <label asp-for="Category">Category:</label>
         <input asp-for="Category" />
+        @Html.ValidationMessageFor(model => model.Category)
         @* <select asp-for="Category" id="category" name="category" style="width: 80%;">
             <option value="Family">Family</option>
             <option value="Comedy">Comedy</option>
@@ -31,9 +33,11 @@
         <br />
         <label asp-for="Year">Year:</label>
         <input asp-for="Year" />
+        @Html.ValidationMessageFor(model => model.Year)
         <br />
         <label asp-for="Director">Director:</label>
         <input asp-for="Director" />
+        @Html.ValidationMessageFor(model => model.Director)
         <br />
 
         <br />
@@ -50,6 +54,7 @@
             <option value="TV-Y7">TV-Y7</option>
             <option value="R?">R?</option> *@
         </select>
+        @Html.ValidationMessageFor(model => model.Rating)
         <br />
         <label asp-for="Edited">Edited:</label>
         <input asp-for="Edited" />
@@ -60,6 +65,7 @@
         <label asp-for="Notes">Notes:</label>
         <input asp-for="Notes" />
         <br />
+        <button type="submit">Add Movie</button>
     </form>
 
 </div>
