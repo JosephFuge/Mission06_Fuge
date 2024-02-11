@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Mission06_Fuge.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MoviesCollectionContext>(options => 
+{
+    options.UseSqlite(builder.Configuration['ConnectionStrings:MoviesConnection']);
+});
 
 var app = builder.Build();
 
