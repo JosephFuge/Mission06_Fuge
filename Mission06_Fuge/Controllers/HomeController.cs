@@ -6,6 +6,12 @@ namespace Mission06_Fuge.Controllers
 {
     public class HomeController : Controller
     {
+        private MoviesCollectionContext _context;
+
+        public HomeController(MoviesCollectionContext tempContext) { 
+            _context = tempContext;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -25,12 +31,43 @@ namespace Mission06_Fuge.Controllers
         [HttpPost]
         public IActionResult AddMovie(Movie newMovie)
         {
-            if (ModelState.IsValid)
+            if (newMovie.LentTo == null)
             {
-                return View(newMovie);
+                newMovie.LentTo = "";
+            }
+            
+            if (newMovie.Notes == null)
+            {
+                newMovie.Notes = "";
             }
 
-            return View();
+
+            if (ModelState.IsValid)
+            {
+                _context.Movies.Add(newMovie);
+                _context.SaveChanges();
+                return View(newMovie);
+            }
+            else
+            {
+                // Log validation errors
+                foreach (var key in ModelState.Keys)
+                {
+                    var error = ModelState[key].Errors.FirstOrDefault();
+                    if (error != null)
+                    {
+                        var errorMessage = error.ErrorMessage;
+                        // Log or handle the error message as needed
+                        Console.WriteLine($"Validation error for property '{key}': {errorMessage}");
+                    }
+                }
+
+                // If ModelState is not valid, return the same view with validation errors
+                ViewBag.IsValid = false; // Setting a flag to indicate model state validity
+                return View();
+            }
+
+            //return View();
         }
     }
 }
