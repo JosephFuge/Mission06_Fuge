@@ -41,6 +41,11 @@ namespace Mission06_Fuge.Controllers
                 newMovie.Notes = "";
             }
 
+            if (newMovie.SubCategory == null)
+            {
+                newMovie.SubCategory = "";
+            }
+
 
             if (ModelState.IsValid)
             {
@@ -48,26 +53,8 @@ namespace Mission06_Fuge.Controllers
                 _context.SaveChanges();
                 return View(newMovie);
             }
-            else
-            {
-                // Log validation errors
-                foreach (var key in ModelState.Keys)
-                {
-                    var error = ModelState[key].Errors.FirstOrDefault();
-                    if (error != null)
-                    {
-                        var errorMessage = error.ErrorMessage;
-                        // Log or handle the error message as needed
-                        Console.WriteLine($"Validation error for property '{key}': {errorMessage}");
-                    }
-                }
 
-                // If ModelState is not valid, return the same view with validation errors
-                ViewBag.IsValid = false; // Setting a flag to indicate model state validity
-                return View();
-            }
-
-            //return View();
+            return View();
         }
     }
 }

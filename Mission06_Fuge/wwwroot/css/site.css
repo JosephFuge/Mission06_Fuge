@@ -42,3 +42,7 @@ img {
     box-shadow: 0px 0px 20px 3px grey;
     border-radius: 8px;
 }
+
+.field-validation-error {
+    color: red;
+}
