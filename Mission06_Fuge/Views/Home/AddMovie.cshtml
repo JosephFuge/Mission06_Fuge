@@ -4,7 +4,7 @@
 @{
 }
 
-@model Movie
+@model Movies
 
 <div class="text-center">
     @if (Model != null)
@@ -13,29 +13,33 @@
     }
 
     <form method="post">
+
+        @if (Model != null)
+        {
+            <input type="hidden" asp-for="MovieId" />
+        }
+
         <label asp-for="Title">Title:</label>
         <input asp-for="Title" />
         <br />
         @Html.ValidationMessageFor(model => model.Title)
         <br />
-        <label asp-for="Category">Category:</label>
-        <input asp-for="Category" />
-        <br />
-        @Html.ValidationMessageFor(model => model.Category)
-        @* <select asp-for="Category" id="category" name="category" style="width: 80%;">
-            <option value="Family">Family</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Action/Adventure">Action/Adventure</option>
-            <option value="Horror/Suspense">Horror/Suspense</option>
-            <option value="Television">Television</option>
-            <option value="Drama">Drama</option>
-            <option value="VHS">VHS</option>
-            <option value="Miscellaneous">Miscellaneous</option>
-        </select> *@
-        <label asp-for="SubCategory">Subcategory:</label>
-        <input asp-for="SubCategory" />
-        <br />
-        @Html.ValidationMessageFor(model => model.SubCategory)
+        <label asp-for="CategoryId">Category:</label>
+        <select asp-for="CategoryId">
+            <option value="">Select a Category</option>
+            @foreach (Categories cat in ViewBag.CategoryList)
+            {
+                <option value="@cat.CategoryId">@cat.Category</option>
+            }
+            @* <option value="1">Miscellaneous</option>
+            <option value="2">Drama</option>
+            <option value="3">Television</option>
+            <option value="4">Horror/Suspense</option>
+            <option value="5">Comedy</option>
+            <option value="6">Family</option>
+            <option value="7">Action/Adventure</option>
+            <option value="8">VHS</option> *@
+        </select>
         <br />
         <label asp-for="Year">Starting Year:</label>
         <input asp-for="Year" />
@@ -67,6 +71,9 @@
         <br />
         <label asp-for="Edited">Edited:</label>
         <input asp-for="Edited" />
+        <br />
+        <label asp-for="CopiedToPlex">Copied To Plex:</label>
+        <input asp-for="CopiedToPlex" />
         <br />
         <label asp-for="LentTo">Lent To:</label>
         <input asp-for="LentTo" value="" />

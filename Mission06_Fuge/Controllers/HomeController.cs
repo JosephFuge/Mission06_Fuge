@@ -25,12 +25,16 @@ namespace Mission06_Fuge.Controllers
         [HttpGet]
         public IActionResult AddMovie()
         {
+            ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddMovie(Movie newMovie)
+        public IActionResult AddMovie(Movies newMovie)
         {
+            ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+
             if (newMovie.LentTo == null)
             {
                 newMovie.LentTo = "";
@@ -39,11 +43,6 @@ namespace Mission06_Fuge.Controllers
             if (newMovie.Notes == null)
             {
                 newMovie.Notes = "";
-            }
-
-            if (newMovie.SubCategory == null)
-            {
-                newMovie.SubCategory = "";
             }
 
 
@@ -55,6 +54,50 @@ namespace Mission06_Fuge.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult MovieList()
+        {
+            ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+
+            var movieList = _context.Movies.OrderBy(mov => mov.Title).ToList();
+
+            return View(movieList);
+        }
+
+        [HttpGet]
+        public IActionResult EditMovie(int movieId)
+        {
+            ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+
+            var editMovie = _context.Movies.Single(mov => mov.MovieId == movieId);
+
+            return View("AddMovie", editMovie);
+        }
+
+        [HttpPost]
+        public IActionResult EditMovie(Movies movie)
+        {
+            if (movie.LentTo == null)
+            {
+                movie.LentTo = "";
+            }
+
+            if (movie.Notes == null)
+            {
+                movie.Notes = "";
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(movie);
+                _context.SaveChanges(true);
+                return RedirectToAction("MovieList");
+            }
+            
+            return View("AddMovie");
         }
     }
 }
