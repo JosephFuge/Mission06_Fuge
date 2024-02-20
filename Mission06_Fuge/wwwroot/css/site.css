@@ -46,3 +46,12 @@ img {
 .field-validation-error {
     color: red;
 }
+
+tbody td {
+    border-bottom: 8px solid transparent; /* Adjust as needed */
+}
+
+tbody tr td:nth-child(2) {
+    text-align: left; /* Aligns text to the left */
+    padding-left: 10px; /* Adds some space between the label and the input */
+}

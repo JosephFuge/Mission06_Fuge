@@ -50,11 +50,21 @@ namespace Mission06_Fuge.Controllers
             {
                 _context.Movies.Add(newMovie);
                 _context.SaveChanges();
+                return RedirectToAction("AddMovieForm");
+            } else
+            {
                 return View(newMovie);
-            }
-
-            return View();
+            }            
         }
+
+        // This action returns a view with a new, empty Movie model to clear the form inputs
+        public ActionResult AddMovieForm()
+        {
+            ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+            
+            return View("AddMovie");
+        }
+
 
         [HttpGet]
         public IActionResult MovieList()
@@ -97,7 +107,7 @@ namespace Mission06_Fuge.Controllers
                 return RedirectToAction("MovieList");
             }
             
-            return View("AddMovie");
+            return View("AddMovie", new Movies());
         }
     }
 }

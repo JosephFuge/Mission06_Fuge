@@ -16,6 +16,7 @@ namespace Mission06_Fuge.Models
         public string Title { get; set; } = "";
 
         [Required(ErrorMessage="Please enter a valid year.")]
+        [Range(1888, Int32.MaxValue, ErrorMessage ="Year must be greater than 1888.")]
         public int Year { get; set; } = 1888;
 
         public string? Director { get; set; } = "";

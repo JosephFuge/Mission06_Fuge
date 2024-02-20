@@ -19,70 +19,80 @@
             <input type="hidden" asp-for="MovieId" />
         }
 
-        <label asp-for="Title">Title:</label>
-        <input asp-for="Title" />
-        <br />
-        @Html.ValidationMessageFor(model => model.Title)
-        <br />
-        <label asp-for="CategoryId">Category:</label>
-        <select asp-for="CategoryId">
-            <option value="">Select a Category</option>
-            @foreach (Categories cat in ViewBag.CategoryList)
-            {
-                <option value="@cat.CategoryId">@cat.Category</option>
-            }
-            @* <option value="1">Miscellaneous</option>
-            <option value="2">Drama</option>
-            <option value="3">Television</option>
-            <option value="4">Horror/Suspense</option>
-            <option value="5">Comedy</option>
-            <option value="6">Family</option>
-            <option value="7">Action/Adventure</option>
-            <option value="8">VHS</option> *@
-        </select>
-        <br />
-        <label asp-for="Year">Starting Year:</label>
-        <input asp-for="Year" />
-        <br />
-        @Html.ValidationMessageFor(model => model.Year)
-        <br />
-        <label asp-for="Director">Director:</label>
-        <input asp-for="Director" />
-        <br />
-        @Html.ValidationMessageFor(model => model.Director)
-        <br />
+        <table>
+            <tr>
+                <td style="text-align: right;"><label asp-for="Title">Title:</label></td>
+                <td><input asp-for="Title" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="CategoryId">Category:</label></td>
+                <td>
+                    <select asp-for="CategoryId">
+                        <option value="">Select a Category</option>
+                        @foreach (Categories cat in ViewBag.CategoryList)
+                        {
+                            <option value="@cat.CategoryId">@cat.Category</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.CategoryId)</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="Year">Starting Year:</label></td>
+                <td><input asp-for="Year" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Year)</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="Director">Director:</label></td>
+                <td><input asp-for="Director" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Director)</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="Rating">Rating:</label></td>
+                <td>
+                    <select asp-for="Rating" id="rating" name="rating" style="width: 80%;">
+                        <option value="G">G</option>
+                        <option value="PG">PG</option>
+                        <option value="PG-13">PG-13</option>
+                        <option value="R">R</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Rating)</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="Edited">Edited:</label></td>
+                <td><input asp-for="Edited" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="CopiedToPlex">Copied To Plex:</label></td>
+                <td><input asp-for="CopiedToPlex" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="LentTo">Lent To:</label></td>
+                <td><input asp-for="LentTo" value="" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><label asp-for="Notes">Notes:</label></td>
+                <td><input asp-for="Notes" value="" /></td>
+            </tr>
+        </table>
 
-        <br />
-        <label asp-for="Rating">Rating:</label>
-        <select asp-for="Rating" id="rating" name="rating" style="width: 80%;">
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="PG-13">PG-13</option>
-            <option value="R">R</option>
-            @* <option value="NR">NR</option>
-            <option value="TV-14">TV-14</option>
-            <option value="TV-PG">TV-PG</option>
-            <option value="UR">UR</option>
-            <option value="TV-Y7">TV-Y7</option>
-            <option value="R?">R?</option> *@
-        </select>
-        <br />
-        @Html.ValidationMessageFor(model => model.Rating)
-        <br />
-        <label asp-for="Edited">Edited:</label>
-        <input asp-for="Edited" />
-        <br />
-        <label asp-for="CopiedToPlex">Copied To Plex:</label>
-        <input asp-for="CopiedToPlex" />
-        <br />
-        <label asp-for="LentTo">Lent To:</label>
-        <input asp-for="LentTo" value="" />
-        @* @Html.TextBoxFor(n => n.LentTo, new { @value = ""}) *@
-        <br />
-        <label asp-for="Notes" >Notes:</label>
-        <input asp-for="Notes" value="" />
-        @* @Html.TextBoxFor(n => n.Notes, new { @value = "" }) *@
-        <br />
         <button type="submit">Add Movie</button>
     </form>
 
