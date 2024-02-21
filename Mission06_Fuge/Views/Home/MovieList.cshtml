@@ -50,6 +50,7 @@
                 <td>@mov.CopiedToPlex</td>
                 <td>@mov.Notes</td>
                 <td><a class="btn btn-info" asp-controller="Home" asp-action="EditMovie" asp-route-movieId="@mov.MovieId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-controller="Home" asp-action="DeleteMovie" asp-route-movieId="@mov.MovieId">Delete</a></td>
             </tr>
         }
     </tbody>

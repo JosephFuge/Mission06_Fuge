@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Mission06_Fuge.Models;
+using System.Reflection;
 //using System.Diagnostics;
 
 namespace Mission06_Fuge.Controllers
@@ -22,6 +23,7 @@ namespace Mission06_Fuge.Controllers
             return View();
         }
 
+        // 
         [HttpGet]
         public IActionResult AddMovie()
         {
@@ -30,6 +32,7 @@ namespace Mission06_Fuge.Controllers
             return View();
         }
 
+        // Save the movie to the database
         [HttpPost]
         public IActionResult AddMovie(Movies newMovie)
         {
@@ -61,6 +64,7 @@ namespace Mission06_Fuge.Controllers
         public ActionResult AddMovieForm()
         {
             ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+            ViewBag.MovieSuccess = true;
             
             return View("AddMovie");
         }
@@ -108,6 +112,23 @@ namespace Mission06_Fuge.Controllers
             }
             
             return View("AddMovie", new Movies());
+        }
+
+        [HttpGet]
+        public IActionResult DeleteMovie(int movieId)
+        {
+            var recordToDelete = _context.Movies.Single(mov => mov.MovieId == movieId);
+
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteMovie(Movies movie)
+        {
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+
+            return RedirectToAction("MovieList");
         }
     }
 }

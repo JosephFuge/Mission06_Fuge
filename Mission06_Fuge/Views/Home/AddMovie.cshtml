@@ -7,9 +7,9 @@
 @model Movies
 
 <div class="text-center">
-    @if (Model != null)
+    @if (ViewBag.MovieSuccess != null && ViewBag.MovieSuccess)
     {
-        <h3>Thank you for adding @Model.Title to Joel's collection!</h3>
+        <h3>Thank you for adding to Joel's collection!</h3>
     }
 
     <form method="post">

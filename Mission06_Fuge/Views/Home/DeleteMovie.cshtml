@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Movies
+
+<div class="text-center">
+    <form class="wide-form" method="post">
+            <h3>Are you sure you want to delete "@Model.Title"?</h3>
+            <input type="hidden" value="@Model.MovieId" />
+            <a class="btn btn-info" asp-controller="Home" asp-action="MovieList">Cancel</a>
+            <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+</div>
