@@ -7,7 +7,7 @@ namespace Mission06_Fuge.Models
         public MoviesCollectionContext(DbContextOptions<MoviesCollectionContext> options) : base(options) {
         }
 
-        public DbSet<Movies> Movies { get; set; }
-        public DbSet<Categories> Categories { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

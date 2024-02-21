@@ -4,9 +4,11 @@
 @{
 }
 
-@model Movies
+@model Movie
 
 <div class="text-center">
+
+    @* Thank user if they just created a movie *@
     @if (ViewBag.MovieSuccess != null && ViewBag.MovieSuccess)
     {
         <h3>Thank you for adding to Joel's collection!</h3>
@@ -14,6 +16,7 @@
 
     <form method="post">
 
+        @* Embed MovieId if user is editing an existing movie *@
         @if (Model != null)
         {
             <input type="hidden" asp-for="MovieId" />
@@ -33,9 +36,9 @@
                 <td>
                     <select asp-for="CategoryId">
                         <option value="">Select a Category</option>
-                        @foreach (Categories cat in ViewBag.CategoryList)
+                        @foreach (Category cat in ViewBag.CategoryList)
                         {
-                            <option value="@cat.CategoryId">@cat.Category</option>
+                            <option value="@cat.CategoryId">@cat.CategoryName</option>
                         }
                     </select>
                 </td>
@@ -85,15 +88,22 @@
             </tr>
             <tr>
                 <td style="text-align: right;"><label asp-for="LentTo">Lent To:</label></td>
-                <td><input asp-for="LentTo" value="" /></td>
+                <td><input asp-for="LentTo" /></td>
             </tr>
             <tr>
                 <td style="text-align: right;"><label asp-for="Notes">Notes:</label></td>
-                <td><input asp-for="Notes" value="" /></td>
+                <td><input asp-for="Notes" /></td>
             </tr>
         </table>
 
-        <button type="submit">Add Movie</button>
+        @* Change button text based on whether you are editing or not. *@
+        @if (ViewBag.IsEditing != null && ViewBag.IsEditing)
+        {
+            <button type="submit">Save Changes</button>
+        } else
+        {
+            <button type="submit">Add Movie</button>
+        }
     </form>
 
 </div>

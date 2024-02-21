@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission06_Fuge.Models;
 using System.Reflection;
-//using System.Diagnostics;
 
 namespace Mission06_Fuge.Controllers
 {
@@ -23,7 +23,6 @@ namespace Mission06_Fuge.Controllers
             return View();
         }
 
-        // 
         [HttpGet]
         public IActionResult AddMovie()
         {
@@ -34,7 +33,7 @@ namespace Mission06_Fuge.Controllers
 
         // Save the movie to the database
         [HttpPost]
-        public IActionResult AddMovie(Movies newMovie)
+        public IActionResult AddMovie(Movie newMovie)
         {
             ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
 
@@ -48,7 +47,7 @@ namespace Mission06_Fuge.Controllers
                 newMovie.Notes = "";
             }
 
-
+            // Only save movie to database if the form inputs are valid
             if (ModelState.IsValid)
             {
                 _context.Movies.Add(newMovie);
@@ -73,9 +72,7 @@ namespace Mission06_Fuge.Controllers
         [HttpGet]
         public IActionResult MovieList()
         {
-            ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
-
-            var movieList = _context.Movies.OrderBy(mov => mov.Title).ToList();
+            var movieList = _context.Movies.Include("Category").OrderBy(mov => mov.Title).ToList();
 
             return View(movieList);
         }
@@ -84,6 +81,7 @@ namespace Mission06_Fuge.Controllers
         public IActionResult EditMovie(int movieId)
         {
             ViewBag.CategoryList = _context.Categories.OrderBy(cat => cat.CategoryId).ToList();
+            ViewBag.IsEditing = true;
 
             var editMovie = _context.Movies.Single(mov => mov.MovieId == movieId);
 
@@ -91,8 +89,9 @@ namespace Mission06_Fuge.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditMovie(Movies movie)
+        public IActionResult EditMovie(Movie movie)
         {
+            // Replace LentTo and Notes with empty strings if they are null values
             if (movie.LentTo == null)
             {
                 movie.LentTo = "";
@@ -103,7 +102,7 @@ namespace Mission06_Fuge.Controllers
                 movie.Notes = "";
             }
 
-
+            // Only save changes to database if the form inputs are valid
             if (ModelState.IsValid)
             {
                 _context.Update(movie);
@@ -111,7 +110,7 @@ namespace Mission06_Fuge.Controllers
                 return RedirectToAction("MovieList");
             }
             
-            return View("AddMovie", new Movies());
+            return View("AddMovie", new Movie());
         }
 
         [HttpGet]
@@ -123,7 +122,7 @@ namespace Mission06_Fuge.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteMovie(Movies movie)
+        public IActionResult DeleteMovie(Movie movie)
         {
             _context.Movies.Remove(movie);
             _context.SaveChanges();

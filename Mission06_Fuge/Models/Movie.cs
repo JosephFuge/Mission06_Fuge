@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mission06_Fuge.Models
 {
-    public class Movies
+    public class Movie
     {
         [Key]
         public int MovieId { get; set; }
@@ -11,6 +11,7 @@ namespace Mission06_Fuge.Models
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Movie category is required.")]
         [ForeignKey("CategoryId")]
         public int? CategoryId { get; set; }
+        public Category? Category { get ; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage="Movie title is required.")]
         public string Title { get; set; } = "";
@@ -25,7 +26,7 @@ namespace Mission06_Fuge.Models
         public string? Rating { get; set; } = "";
         [Required]
         public bool CopiedToPlex { get; set; }
-
+        [Required]
         public bool Edited { get; set; }
         public string? LentTo { get; set; }
 

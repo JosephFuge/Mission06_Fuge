@@ -4,7 +4,7 @@
 @{
 }
 
-@model List<Movies>
+@model List<Movie>
 
 <table class="table table-striped table-bordered">
     <thead class="thead-light"> 
@@ -21,25 +21,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Movies mov in Model) {
+        @foreach (Movie mov in Model) {
             <tr>
                 <td>@mov.Title</td>
                 <td>@mov.Year</td>
                 <td>@mov.Director</td>
-                @if (mov.CategoryId != null) {
+                @if (mov.CategoryId != null && mov.Category != null) {
                     <td>
-                        @{
-                            List<Categories> categories = ViewBag.CategoryList;
-                            var category = categories.FirstOrDefault(cat => cat.CategoryId == mov.CategoryId);
-                            if (category != null)
-                            {
-                                @category.Category;
-                            } else
-                            {
-                                <text>None</text>
-                            }
-                        }
-                        
+                        @mov.Category.CategoryName                        
                     </td>
                 } else {
                     <td></td>
